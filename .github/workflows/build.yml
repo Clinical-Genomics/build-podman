@@ -1,0 +1,63 @@
+name: build podman
+on: 
+  push:
+    tags:
+      - build*
+jobs:
+  build-podman:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [1.15.3]
+        podman-version: [2.1.1]
+        conmon-version: [2.0.20]
+        centos-version: [8]
+        containernetworking-plugins-version: [0.8.7]
+        installprefix: [/home/erik.sjolund/podman]
+    steps:
+      - name: Run actions/setup-go with go-version ${{ matrix.goVersion }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: mkdir
+        run: |
+          mkdir $GITHUB_WORKSPACE/output
+          mkdir -p $GITHUB_WORKSPACE/gopath/src/github.com/containers
+      - name: Run actions/checkout for this repo
+        uses: actions/checkout@v2
+        with:
+          path: checkout_build_podman
+          persist-credentials: false
+      - name: Run actions/checkout for containers/conmon
+        uses: actions/checkout@v2
+        with:
+          repository: containers/conmon
+          ref: v${{ matrix.conmon-version }}
+          path: gopath/src/github.com/containers/conmon
+          persist-credentials: false
+      - name: Run actions/checkout for containers/podman
+        uses: actions/checkout@v2
+        with:
+          repository: containers/podman
+          ref: v${{ matrix.podman-version }}
+          path: gopath/src/github.com/containers/podman
+          persist-credentials: false
+      - name: Run actions/checkout for containernetworking/plugins
+        uses: actions/checkout@v2
+        with:
+          repository: containernetworking/plugins
+          ref: v${{ matrix.containernetworking-plugins-version }}
+          path: gopath/src/github.com/containernetworking/plugins
+          persist-credentials: false
+      - name: podman run
+        run: |
+          podman run --rm -v $GITHUB_WORKSPACE/output:${{ matrix.installprefix }} -v $GITHUB_WORKSPACE/checkout_build_podman:/checkout_build_podman -v /opt/hostedtoolcache/go:/opt/hostedtoolcache/go -v $GITHUB_WORKSPACE/gopath:/gopath -e GOROOT=/opt/hostedtoolcache/go/${{ matrix.go-version }}/x64 -e PATH=/opt/hostedtoolcache/go/${{ matrix.go-version }}/x64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin docker.io/clinicalgenomics/build-podman:centos${{ matrix.centos-version }} bash /checkout_build_podman/container_build_command.sh ${{ matrix.installprefix }}
+      - name: check output
+        run: |
+          ls $GITHUB_WORKSPACE/output
+      - name: create tar archive
+        run: tar -cvf centos${{ matrix.centos-version }}-podman${{ matrix.podman-version }}-conmon${{ matrix.conmon-version }}-containernetworking-plugins-version${{ matrix.containernetworking-plugins-version }}-go${{ matrix.go-version }}.tar output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: centos${{ matrix.centos-version }}-podman${{ matrix.podman-version }}-conmon${{ matrix.conmon-version }}-containernetworking-plugins-version${{ matrix.containernetworking-plugins-version }}-go${{ matrix.go-version }}.tar
+          path: centos${{ matrix.centos-version }}-podman${{ matrix.podman-version }}-conmon${{ matrix.conmon-version }}-containernetworking-plugins-version${{ matrix.containernetworking-plugins-version }}-go${{ matrix.go-version }}.tar
