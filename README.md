@@ -54,7 +54,7 @@ ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/%n-cid
 should be replaced with
 
 ```
-EnvironmentFile=%S/EnvironmentFile.podman
+EnvironmentFile=%S/EnvironmentFile.systemd_podman
 ExecStartPre=/bin/rm -f %t/%n-pid %t/%n-cid
 ExecStart=%h/podman/bin/podman run --conmon-pidfile %t/%n-pid --cidfile %t/%n-cid --cgroups=no-conmon -d -dit alpine
 ExecStop=%h/podman/bin/podman stop --ignore --cidfile %t/%n-cid -t 10
