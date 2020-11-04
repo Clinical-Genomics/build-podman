@@ -39,7 +39,7 @@ echo ~/podman/bin:~/bin:$PATH > ~/.config/EnvironmentFile.systemd_podman
 Then add the line
 
 ```
-EnvironmentFile=%S/EnvironmentFile.podman
+EnvironmentFile=%S/EnvironmentFile.systemd_podman
 ```
 in your podman user systemd service files.
 
