@@ -36,7 +36,7 @@ echo ~/podman/bin:~/bin:$PATH > ~/.config/EnvironmentFile.systemd_podman
 
 (the filename _EnvironmentFile.systemd_podman_ was arbitrarily chosen)
 
-The add the line
+Then add the line
 
 ```
 EnvironmentFile=%S/EnvironmentFile.podman
