@@ -17,10 +17,8 @@ TODO: provide more detailed instructions for the installation and for running so
 A sketch
 
 ```
-podman --runtime=/home/erik.sjolund/bin/crun --storage-driver overlay  --storage-opt overlay.mount_program=/home/erik.sjolund/bin/fuse-overlayfs  run -ti -v /home/erik.sjolund/testdir/:/t:O docker.io/library/alpine
+podman --runtime=/home/erik.sjolund/bin/crun --storage-driver overlay --storage-opt overlay.mount_program=/home/erik.sjolund/bin/fuse-overlayfs run -ti -v /home/erik.sjolund/testdir/:/t:O docker.io/library/alpine
 ```
-
-
 
 ## Adjusting user systemd services
 
