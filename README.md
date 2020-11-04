@@ -20,3 +20,43 @@ A sketch
 podman --runtime=/home/erik.sjolund/bin/crun --storage-driver overlay  --storage-opt overlay.mount_program=/home/erik.sjolund/bin/fuse-overlayfs  run -ti -v /home/erik.sjolund/testdir/:/t:O docker.io/library/alpine
 ```
 
+
+
+## Adjusting user systemd services
+
+If you have generated systemd services with the command `podman generate systemd --new` and installed them under _~/.config/systemd/user_ , you need to replace occurences of `/usr/bin/podman` with `%h/podman/bin/podman`
+in your files  _~/.config/systemd/user/*.service_. 
+
+Also adjust the environment variables for the user systemd service
+
+```
+mkdir ~/.config
+echo ~/podman/bin:~/bin:$PATH > ~/.config/EnvironmentFile.systemd_podman
+```
+
+(the filename _EnvironmentFile.systemd_podman_ was arbitrarily chosen)
+
+The add the line
+
+```
+EnvironmentFile=%S/EnvironmentFile.podman
+```
+in your podman user systemd service files.
+
+For instance the lines
+
+```
+ExecStartPre=/bin/rm -f %t/%n-pid %t/%n-cid
+ExecStart=/usr/bin/podman run --conmon-pidfile %t/%n-pid --cidfile %t/%n-cid --cgroups=no-conmon -d -dit alpine
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/%n-cid -t 10
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/%n-cid
+```
+should be replaced with
+
+```
+EnvironmentFile=%S/EnvironmentFile.podman
+ExecStartPre=/bin/rm -f %t/%n-pid %t/%n-cid
+ExecStart=%h/podman/bin/podman run --conmon-pidfile %t/%n-pid --cidfile %t/%n-cid --cgroups=no-conmon -d -dit alpine
+ExecStop=%h/podman/bin/podman stop --ignore --cidfile %t/%n-cid -t 10
+ExecStopPost=%h/podman/bin/podman rm --ignore -f --cidfile %t/%n-cid
+```
