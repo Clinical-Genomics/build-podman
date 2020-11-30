@@ -9,9 +9,9 @@ jobs:
     strategy:
       matrix:
         go-version: [1.15.3]
-        podman-version: [2.1.1, 2.0.6]
+        podman-version: [2.1.1-rhel]
         conmon-version: [2.0.20]
-        centos-version: [8, 7]
+        centos-version: [8]
         containernetworking-plugins-version: [0.8.7]
         installprefix: [/home/erik.sjolund/podman]
     steps:
