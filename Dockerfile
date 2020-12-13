@@ -5,8 +5,7 @@ FROM docker.io/library/centos:${CENTOS_VERSION}
 # libselinux-devel
 # glibc-static
 # device-mapper-devel 
-RUN yum -y update && \
-  yum -y install \
+RUN yum -y install \
     autoconf \
     automake \
     gcc \
@@ -23,8 +22,13 @@ RUN yum -y update && \
     systemd-devel && \
   . /etc/os-release && \
   major_version=$(cut -d '.' -f 1 <<< "$VERSION_ID") && \
-  if [ $major_version == "8" ]; \
-    then sed -i s/enabled=0/enabled=1/ /etc/yum.repos.d/CentOS-PowerTools.repo ; \
+  if [ $major_version == "8" ]; then \
+    minor_version=$(cut -d '.' -f 2 <<< "$VERSION_ID") && \
+    repo=/etc/yum.repos.d/CentOS-PowerTools.repo && \
+    if [ -n "$minor_version" -a $minor_version -ge 3 ]; then \
+      repo=/etc/yum.repos.d/CentOS-Linux-PowerTools.repo; \
+    fi && \
+    sed -i s/enabled=0/enabled=1/ $repo ; \
   fi && \
   yum install -y \
     device-mapper \
