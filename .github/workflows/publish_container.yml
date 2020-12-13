@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        centos-version: [8, 7]
+        centos-version: [8.2.2004, 7.7.1908]
     steps:
       -
         name: Set up QEMU
@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: clinicalgenomics/build-podman:centos${{ matrix.centos-version }}
+          tags: eriksjolund/build-podman:centos${{ matrix.centos-version }}
           build-args: |
             CENTOS_VERSION=${{ matrix.centos-version }}
       -
