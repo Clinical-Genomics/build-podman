@@ -24,8 +24,10 @@ RUN yum -y install \
     if [ $major_version == "8" ]; then \
       minor_version=$(cut -d '.' -f 2 <<< "$CENTOS_VERSION") && \
       repo=/etc/yum.repos.d/CentOS-PowerTools.repo && \
-      if [ -n "$minor_version" -a $minor_version -ge 3 ]; then \
-        repo=/etc/yum.repos.d/CentOS-Linux-PowerTools.repo; \
+      if [ -n "$minor_version" ]; then \
+        if [ $minor_version -ge 3 ]; then \
+          repo=/etc/yum.repos.d/CentOS-Linux-PowerTools.repo; \
+        fi; \
       fi && \
       sed -i s/enabled=0/enabled=1/ $repo ; \
     fi && \
