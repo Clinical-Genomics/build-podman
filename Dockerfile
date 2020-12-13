@@ -22,7 +22,8 @@ RUN yum -y update && \
     pkgconfig \
     systemd-devel && \
   . /etc/os-release && \
-  if [ $VERSION_ID == "8" ]; \
+  major_version=$(cut -d '.' -f 1 <<< "$VERSION_ID") && \
+  if [ $major_version == "8" ]; \
     then sed -i s/enabled=0/enabled=1/ /etc/yum.repos.d/CentOS-PowerTools.repo ; \
   fi && \
   yum install -y \
