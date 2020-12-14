@@ -21,18 +21,18 @@ RUN set -o nounset && yum -y install \
       pkgconf-pkg-config \
       pkgconfig \
       systemd-devel && \
-    repo=/etc/yum.repos.d/CentOS-PowerTools.repo && \
     major_version=$(cut -d '.' -f 1 <<< ${CENTOS_VERSION} ) && \
     if [ -n "$major_version" ]; then \
       if [ "$major_version" == "8" ]; then \
+        repo=/etc/yum.repos.d/CentOS-PowerTools.repo && \
         minor_version=$(cut -d '.' -f 2 <<< ${CENTOS_VERSION} ) && \        
         if [ -n "$minor_version" ]; then \
           if [ $minor_version -ge 3 ]; then \
             repo=/etc/yum.repos.d/CentOS-Linux-PowerTools.repo; \
           fi; \
         fi; \
+        sed -i s/enabled=0/enabled=1/ $repo ; \
       fi && \
-      sed -i s/enabled=0/enabled=1/ $repo ; \
     fi && \
     yum install -y \
       device-mapper \
