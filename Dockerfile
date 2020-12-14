@@ -4,7 +4,8 @@ FROM docker.io/library/centos:${CENTOS_VERSION}
 # Maybe add 
 # libselinux-devel
 # glibc-static
-# device-mapper-devel 
+# device-mapper-devel
+SHELL ["/bin/bash", "-c"]
 RUN set -o nounset && yum -y install \
       autoconf \
       automake \
