@@ -21,10 +21,10 @@ RUN set -o nounset && yum -y install \
       pkgconf-pkg-config \
       pkgconfig \
       systemd-devel && \
-    major_version=$(cut -d '.' -f 1 <<< $CENTOS_VERSION) && \
+    major_version=$(cut -d '.' -f 1 <<< ${CENTOS_VERSION} ) && \
     if [ -n "$major_version" ]; then \
       if [ "$major_version" == "8" ]; then \
-        minor_version=$(cut -d '.' -f 2 <<< $CENTOS_VERSION) && \
+        minor_version=$(cut -d '.' -f 2 <<< ${CENTOS_VERSION} ) && \
         repo=/etc/yum.repos.d/CentOS-PowerTools.repo && \
         if [ -n "$minor_version" ]; then \
           if [ $minor_version -ge 3 ]; then \
