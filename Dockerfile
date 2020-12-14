@@ -1,4 +1,4 @@
-ARG  CENTOS_VERSION=8
+ARG CENTOS_VERSION=8.3.2011
 FROM docker.io/library/centos:${CENTOS_VERSION}
 
 # Maybe add 
