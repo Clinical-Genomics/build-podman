@@ -31,8 +31,8 @@ RUN set -o nounset && yum -y install \
             repo=/etc/yum.repos.d/CentOS-Linux-PowerTools.repo; \
           fi; \
         fi; \
-        sed -i s/enabled=0/enabled=1/ $repo ; \
-      fi && \
+        sed -i s/enabled=0/enabled=1/ $repo && \
+      fi; \
     fi && \
     yum install -y \
       device-mapper \
