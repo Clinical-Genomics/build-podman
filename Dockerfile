@@ -25,7 +25,7 @@ RUN set -o nounset && yum -y install \
     if [ -n "$major_version" ]; then \
       if [ "$major_version" == "8" ]; then \
         repo=/etc/yum.repos.d/CentOS-PowerTools.repo && \
-        minor_version=$(cut -d '.' -f 2 <<< ${CENTOS_VERSION} ) && \        
+        minor_version=$(cut -d '.' -f 2 <<< ${CENTOS_VERSION} ) && \
         if [ -n "$minor_version" ]; then \
           if [ $minor_version -ge 3 ]; then \
             repo=/etc/yum.repos.d/CentOS-Linux-PowerTools.repo; \
