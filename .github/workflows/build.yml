@@ -12,7 +12,7 @@ jobs:
         podman-version: [183f443a585a3659d807ee413e5b708d37a72924]
         conmon-version: [7bc96c75e9a8f01d243990736cbc07e06d964766]
         centos-version: [8, 7]
-        containernetworking-plugins-version: [0.9.0]
+        containernetworking-plugins-version: [v0.9.0]
         installprefix: [/home/erik.sjolund/podman]
     steps:
       - name: Run actions/setup-go with go-version ${{ matrix.goVersion }}
@@ -32,21 +32,21 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: containers/conmon
-          ref: v${{ matrix.conmon-version }}
+          ref: ${{ matrix.conmon-version }}
           path: gopath/src/github.com/containers/conmon
           persist-credentials: false
       - name: Run actions/checkout for containers/podman
         uses: actions/checkout@v2
         with:
           repository: containers/podman
-          ref: v${{ matrix.podman-version }}
+          ref: ${{ matrix.podman-version }}
           path: gopath/src/github.com/containers/podman
           persist-credentials: false
       - name: Run actions/checkout for containernetworking/plugins
         uses: actions/checkout@v2
         with:
           repository: containernetworking/plugins
-          ref: v${{ matrix.containernetworking-plugins-version }}
+          ref: ${{ matrix.containernetworking-plugins-version }}
           path: gopath/src/github.com/containernetworking/plugins
           persist-credentials: false
       - name: podman run
