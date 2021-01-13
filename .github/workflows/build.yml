@@ -9,10 +9,10 @@ jobs:
     strategy:
       matrix:
         go-version: [1.15.3]
-        podman-version: [2.1.1-rhel]
-        conmon-version: [2.0.20]
+        podman-version: [183f443a585a3659d807ee413e5b708d37a72924]
+        conmon-version: [7bc96c75e9a8f01d243990736cbc07e06d964766]
         centos-version: [8, 7]
-        containernetworking-plugins-version: [0.8.7]
+        containernetworking-plugins-version: [0.9.0]
         installprefix: [/home/erik.sjolund/podman]
     steps:
       - name: Run actions/setup-go with go-version ${{ matrix.goVersion }}
