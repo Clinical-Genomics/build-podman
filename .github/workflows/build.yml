@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.15.3]
-        podman-version: [v3.0.0]
+        podman-version: [v3.0.1]
         conmon-version: [v2.0.26]
         centos-version: [8, 7]
         containernetworking-plugins-version: [v0.9.1]
