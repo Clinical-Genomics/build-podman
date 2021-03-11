@@ -68,8 +68,8 @@ jobs:
           chmod 755 output/bin/fuse-overlayfs
       - name: create tar archive
         run: |
-          tar -cvf bui_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar output
+          tar -cvf bui_${{ github.sha }}__co_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar output
       - uses: actions/upload-artifact@v2
         with:
-          name: bui_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
-          path: bui_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
+          name: bui_${{ github.sha }}__co_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
+          path: bui_${{ github.sha }}__co_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
