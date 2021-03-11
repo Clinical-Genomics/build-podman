@@ -12,7 +12,7 @@ jobs:
         podman-version: [c67172ab8880508c86d7b4891a64361730d2a6ea]
         conmon-version: [v2.0.27]
         centos-version: [8, 7]
-        containernetworking-plugins-version: [v0.9.1]
+        CNI-plugins-version: [v0.9.1]
         crun-version: [0.18]
         slirp4netns-version: [v1.1.9]
         fuse-overlayfs-version: [v1.4.0]
@@ -45,11 +45,11 @@ jobs:
           ref: ${{ matrix.podman-version }}
           path: gopath/src/github.com/containers/podman
           persist-credentials: false
-      - name: Run actions/checkout for containernetworking/plugins
+      - name: Run actions/checkout for CNI/plugins
         uses: actions/checkout@v2
         with:
           repository: containernetworking/plugins
-          ref: ${{ matrix.containernetworking-plugins-version }}
+          ref: ${{ matrix.CNI-plugins-version }}
           path: gopath/src/github.com/containernetworking/plugins
           persist-credentials: false
       - name: podman run
@@ -68,8 +68,8 @@ jobs:
           chmod 755 output/bin/fuse-overlayfs
       - name: create tar archive
         run: |
-          tar -cvf build-podman_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__containernetworking-plugins-version_${{ matrix.containernetworking-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar output
+          tar -cvf build-podman_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar output
       - uses: actions/upload-artifact@v2
         with:
-          name: build-podman_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__containernetworking-plugins-version_${{ matrix.containernetworking-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
-          path: build-podman_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__containernetworking-plugins-version_${{ matrix.containernetworking-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
+          name: build-podman_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins-version_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
+          path: build-podman_${{ github.sha }}__centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__CNI-plugins-version_${{ matrix.CNI-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar
