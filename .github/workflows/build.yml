@@ -65,10 +65,8 @@ jobs:
           curl -o output/bin/fuse-overlayfs -L -s https://github.com/containers/fuse-overlayfs/releases/download/${{ matrix.fuse-overlayfs-version }}/fuse-overlayfs-x86_64
       - name: create tar archive
         run: |
-          tar -cvf centos:${{ matrix.centos-version }}_podman:${{ matrix.podman-version }}_conmon:${{ matrix.conmon-version }}_containernetworking-plugins-version:${{ matrix.containernetworking-plugins-version }}_go:${{ matrix.go-version }}_crun:${{ matrix.crun-version }}_slirp4netns:${{ matrix.slirp4netns-version }}_fuse-overlayfs:${{ matrix.fuse-overlayfs-version }}.tar output
+          tar --force-local -cvf centos:${{ matrix.centos-version }}_podman:${{ matrix.podman-version }}_conmon:${{ matrix.conmon-version }}_containernetworking-plugins-version:${{ matrix.containernetworking-plugins-version }}_go:${{ matrix.go-version }}_crun:${{ matrix.crun-version }}_slirp4netns:${{ matrix.slirp4netns-version }}_fuse-overlayfs:${{ matrix.fuse-overlayfs-version }}.tar output
       - uses: actions/upload-artifact@v2
         with:
-          name: |
-            centos:${{ matrix.centos-version }}_podman:${{ matrix.podman-version }}_conmon:${{ matrix.conmon-version }}_containernetworking-plugins-version:${{ matrix.containernetworking-plugins-version }}_go:${{ matrix.go-version }}_crun:${{ matrix.crun-version }}_slirp4netns:${{ matrix.slirp4netns-version }}_fuse-overlayfs:${{ matrix.fuse-overlayfs-version }}.tar
-          path: |
-            centos:${{ matrix.centos-version }}_podman:${{ matrix.podman-version }}_conmon:${{ matrix.conmon-version }}_containernetworking-plugins-version:${{ matrix.containernetworking-plugins-version }}_go:${{ matrix.go-version }}_crun:${{ matrix.crun-version }}_slirp4netns:${{ matrix.slirp4netns-version }}_fuse-overlayfs:${{ matrix.fuse-overlayfs-version }}.tar
+          name: centos:${{ matrix.centos-version }}_podman:${{ matrix.podman-version }}_conmon:${{ matrix.conmon-version }}_containernetworking-plugins-version:${{ matrix.containernetworking-plugins-version }}_go:${{ matrix.go-version }}_crun:${{ matrix.crun-version }}_slirp4netns:${{ matrix.slirp4netns-version }}_fuse-overlayfs:${{ matrix.fuse-overlayfs-version }}.tar
+          path: centos:${{ matrix.centos-version }}_podman:${{ matrix.podman-version }}_conmon:${{ matrix.conmon-version }}_containernetworking-plugins-version:${{ matrix.containernetworking-plugins-version }}_go:${{ matrix.go-version }}_crun:${{ matrix.crun-version }}_slirp4netns:${{ matrix.slirp4netns-version }}_fuse-overlayfs:${{ matrix.fuse-overlayfs-version }}.tar
