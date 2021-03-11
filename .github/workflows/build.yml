@@ -61,8 +61,11 @@ jobs:
       - name: download extra executables
         run: |
           curl -o output/bin/crun -L -s https://github.com/containers/crun/releases/download/${{ matrix.crun-version }}/crun-${{ matrix.crun-version }}-linux-amd64
+          chmod 755 output/bin/crun
           curl -o output/bin/slirp4netns -L -s https://github.com/rootless-containers/slirp4netns/releases/download/${{ matrix.slirp4netns-version }}/slirp4netns-x86_64
+          chmod 755 output/bin/slirp4netns
           curl -o output/bin/fuse-overlayfs -L -s https://github.com/containers/fuse-overlayfs/releases/download/${{ matrix.fuse-overlayfs-version }}/fuse-overlayfs-x86_64
+          chmod 755 output/bin/fuse-overlayfs
       - name: create tar archive
         run: |
           tar -cvf centos_${{ matrix.centos-version }}__podman_${{ matrix.podman-version }}__conmon_${{ matrix.conmon-version }}__containernetworking-plugins-version_${{ matrix.containernetworking-plugins-version }}__go_${{ matrix.go-version }}__crun_${{ matrix.crun-version }}__slirp4netns_${{ matrix.slirp4netns-version }}__fuse-overlayfs_${{ matrix.fuse-overlayfs-version }}.tar output
