@@ -9,10 +9,13 @@ jobs:
     strategy:
       matrix:
         go-version: [1.15.3]
-        podman-version: [v3.0.1]
-        conmon-version: [v2.0.26]
+        podman-version: [c67172ab8880508c86d7b4891a64361730d2a6ea]
+        conmon-version: [v2.0.27]
         centos-version: [8, 7]
         containernetworking-plugins-version: [v0.9.1]
+        crun-version: [0.18]
+        slirp4netns-version: [v1.1.9]
+        fuse-overlayfs-version: [v1.4.0]
         installprefix: [/home/erik.sjolund/podman]
     steps:
       - name: Run actions/setup-go with go-version ${{ matrix.goVersion }}
@@ -55,8 +58,13 @@ jobs:
       - name: check output
         run: |
           ls $GITHUB_WORKSPACE/output
+      - name: download extra executables
+        run: |
+          curl -o output/bin/crun -L -s https://github.com/containers/crun/releases/download/${{ matrix.crun-version }}/crun-${{ matrix.crun-version }}-linux-amd64
+          curl -o output/bin/slirp4netns -L -s https://github.com/rootless-containers/slirp4netns/releases/download/${{ matrix.slirp4netns-version }}/slirp4netns-x86_64
+          curl -o output/bin/fuse-overlayfs -L -s https://github.com/containers/fuse-overlayfs/releases/download/${{ matrix.fuse-overlayfs-version }}/fuse-overlayfs-x86_64
       - name: create tar archive
-        run: tar -cvf centos${{ matrix.centos-version }}-podman${{ matrix.podman-version }}-conmon${{ matrix.conmon-version }}-containernetworking-plugins-version${{ matrix.containernetworking-plugins-version }}-go${{ matrix.go-version }}.tar output
+        run: tar -cvf centos${{ matrix.centos-version }}-podman${{ matrix.podman-version }}-conmon${{ matrix.conmon-version }}-containernetworking-plugins-version${{ matrix.containernetworking-plugins-version }}-go${{ matrix.go-version }}-crun${{ matrix.crun-version }}-slirp4netns${{ matrix.slirp4netns-version }}-fuse-overlayfs${{ matrix.fuse-overlayfs-version }}.tar output
       - uses: actions/upload-artifact@v2
         with:
           name: centos${{ matrix.centos-version }}-podman${{ matrix.podman-version }}-conmon${{ matrix.conmon-version }}-containernetworking-plugins-version${{ matrix.containernetworking-plugins-version }}-go${{ matrix.go-version }}.tar
