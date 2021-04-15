@@ -6,13 +6,40 @@ This project is trying to help out in the situation where you want to be able to
 `podman` on a CentOS compute cluster where you don't have root permission but only normal user permission. In other words
 the normal installation procedure to install RPM packages (`dnf install podman` or `yum install podman`) is not possible.
 
-In addition to downloading the built artifact (found in the GitHub action) to the compute cluster, you also need to download 
+The GitHub action workflow [.github/workflows/build.yml](.github/workflows/build.yml) contains a matrix
 
-* https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.4/slirp4netns-x86_64 and rename the executable to `slirp4netns`
-* https://github.com/containers/crun/releases/download/0.14.1/crun-0.14.1-static-x86_64 and rename the executable to `crun`
-* https://github.com/containers/fuse-overlayfs/releases/download/v1.2.0/fuse-overlayfs-x86_64 and rename the executable to `fuse-overlayfs`
+```
+    strategy:
+      matrix:
+        go-version: [1.15.3]
+        podman-version: [ad1aaba8df96cb25e12fe28ec96f3c131e572e3e]
+        conmon-version: [v2.0.27]
+        centos-version: [8, 7]
+        CNI-plugins-version: [v0.9.1]
+        crun-version: [0.18]
+        slirp4netns-version: [v1.1.9]
+        fuse-overlayfs-version: [v1.4.0]
+        installprefix: [/home/erik.sjolund/podman]
+```
+where different versions can be specified. 
 
-TODO: provide more detailed instructions for the installation and for running some example commands
+The executables
+
+* crun
+* slirp4netns
+* fuse-overlayfs
+
+are not built but instead downloaded and added to the tar archive together with the Podman build results.
+The tar archive is then uploaded as an artifact to GitHub.
+
+
+#### TODO and caveats
+
+* There is an unnecessary warning https://github.com/containers/podman/issues/9389 (that can be ignored).
+* After untarring the archive, there might be a need to set file SELinux security contexts with `chcon -R ` (TODO: investigate this. It seems to be a problem only when untarring outside of the home directory)
+* Investigate if the installprefix matters at all. (Does it have to match the path where the tar archive is untarred?)
+
+## Usage
 
 A sketch
 
