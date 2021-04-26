@@ -71,9 +71,9 @@ jobs:
         run: echo "::set-output name=outputname::build-podman_${{ github.sha }}__${{ matrix.centos-version }}__${{ matrix.podman-version }}__${{ matrix.conmon-version }}__${{ matrix.CNI-plugins-version }}__${{ matrix.go-version }}__${{ matrix.crun-version }}__${{ matrix.slirp4netns-version }}__${{ matrix.fuse-overlayfs-version }}"
       - name: create tar archive
         run: |
-          mv output ${{steps.setname.outputname}}
-          tar -cvf ${{steps.setname.outputname}}.tar ${{steps.setname.outputname}}
+          mv output ${{steps.setname.outputs.outputname}}
+          tar -cvf ${{steps.setname.outputs.outputname}}.tar ${{steps.setname.outputs.outputname}}
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{steps.setname.outputname}}.tar
-          path: ${{steps.setname.outputname}}.tar
+          name: ${{steps.setname.outputs.outputname}}.tar
+          path: ${{steps.setname.outputs.outputname}}.tar
