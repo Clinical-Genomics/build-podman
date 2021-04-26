@@ -68,7 +68,7 @@ jobs:
           chmod 755 output/bin/fuse-overlayfs
       - name: set name
         id: setname
-        run: echo "::set-output name=outputname::build-podman_${{ github.sha }}__${{ matrix.centos-version }}__${{ matrix.podman-version }}__${{ matrix.conmon-version }}__${{ matrix.CNI-plugins-version }}__${{ matrix.go-version }}__${{ matrix.crun-version }}__${{ matrix.slirp4netns-version }}__${{ matrix.fuse-overlayfs-version }}"
+        run: echo ::set-output name=outputname::build-podman_${{ github.sha }}__${{ matrix.centos-version }}__${{ matrix.podman-version }}__${{ matrix.conmon-version }}__${{ matrix.CNI-plugins-version }}__${{ matrix.go-version }}__${{ matrix.crun-version }}__${{ matrix.slirp4netns-version }}__${{ matrix.fuse-overlayfs-version }}
       - name: create tar archive
         run: |
           mv output ${{steps.setname.outputs.outputname}}
