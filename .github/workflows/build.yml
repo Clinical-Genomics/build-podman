@@ -72,7 +72,7 @@ jobs:
       - name: create tar archive
         run: |
           mv output ${{steps.setname.outputs.outputname}}
-          tar -cvf ${{steps.setname.outputs.outputname}}.tar ${{steps.setname.outputs.outputname}}
+          tar --force-local -cvf ${{steps.setname.outputs.outputname}}.tar ${{steps.setname.outputs.outputname}}
       - uses: actions/upload-artifact@v2
         with:
           name: ${{steps.setname.outputs.outputname}}.tar
