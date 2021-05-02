@@ -6,7 +6,7 @@ This project is trying to help out in the situation where you want to be able to
 `podman` on a CentOS compute cluster where you don't have root permission but only normal user permission. In other words
 the normal installation procedure to install RPM packages (`dnf install podman` or `yum install podman`) is not possible.
 
-The GitHub actions workflow [.github/workflows/build.yml](.github/workflows/build.yml) contains the names the build configurations that should be built
+The GitHub actions workflow [.github/workflows/build.yml](.github/workflows/build.yml) contains the names of the build configurations that should be built
 
 ```
     strategy:
