@@ -71,7 +71,7 @@ that can be ignored (see https://github.com/containers/podman/issues/9389). The 
 
 #### Setting file SELinux security contexts
 
-After uncompressing the archive, there might be a need to set file SELinux security contexts with `chcon -R  chcon -R unconfined_u:object_r:user_home_t:s0 build-podman_*` (TODO: investigate this. It seems to be a problem only when untarring outside of the home directory)
+After uncompressing the archive, there might be a need to set file SELinux security contexts with `chcon -R unconfined_u:object_r:user_home_t:s0 build-podman_*` (TODO: investigate this. It seems to be a problem only when untarring outside of the home directory)
 
 #### TODO: Is  _installprefix_ needed?
 
