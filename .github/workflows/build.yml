@@ -45,6 +45,12 @@ jobs:
           ref: ${{ fromJson(steps.read-config.outputs.config).gitrepos.podman.ref }}
           path: gopath/src/github.com/containers/podman
           persist-credentials: false
+      # Podman issue 9389 has already been fixed in the Podman master branch
+      # (see https://github.com/containers/podman/issues/9389)
+      # Remove this workaround later
+      - name: Fix Podman issue 9389
+        run: |
+          bash checkout_build_podman/fix_podman_issue_9389.bash
       - name: Run actions/checkout for CNI/plugins
         uses: actions/checkout@v2
         with:
