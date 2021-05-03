@@ -12,4 +12,4 @@ IFS=$'\t' read -r -a buildargs < <(cat "checkout_build_podman/config/${config}.j
 
 dockerfile="$(cat checkout_build_podman/config/${config}.json | jq -r .container.dockerfile)"
 
-podman --log-level=debug build "${buildargs[@]}" -t "build-podman:$config" -f "checkout_build_podman/container/$dockerfile" checkout_build_podman/
+podman build "${buildargs[@]}" -t "build-podman:$config" -f "checkout_build_podman/container/$dockerfile" checkout_build_podman/
