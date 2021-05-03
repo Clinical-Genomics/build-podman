@@ -59,16 +59,6 @@ The tar archive is then uploaded as an artifact to GitHub.
 
 ### Caveats
 
-#### Unnecessary warning _which is missing from [engine.runtimes] in containers.conf_
-
-There is an unnecessary warning
-
-```
-WARN[0000] Found default OCIruntime /some/path/bin/crun path which is missing from [engine.runtimes] in containers.conf
-```
-
-that can be ignored (see https://github.com/containers/podman/issues/9389). The bug has been fixed in https://github.com/containers/common/releases/tag/v0.37.0 but no Podman release has yet included this common version.
-
 #### Setting file SELinux security contexts
 
 After uncompressing the archive, there might be a need to set file SELinux security contexts with `chcon -R unconfined_u:object_r:user_home_t:s0 build-podman_*` (TODO: investigate this. It seems to be a problem only when untarring outside of the home directory)
